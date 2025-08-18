@@ -1,29 +1,16 @@
-  {
-  "version": "v0.0.11",
-  "date": "2025-08-18T17:50:07+00:00",
-  "timestamp": 1755539407,
-  "commit": "0daf91bd8ad5af9836cfb975ae58544d42bf9279",
-  "short_commit": "0daf91b",
+{
+  "version": "v0.0.12",
+  "date": "2025-08-18T18:06:48+00:00",
+  "timestamp": 1755540408,
+  "commit": "6e0261af5c177e6898be900f53eaa794ea7da86a",
+  "short_commit": "6e0261a",
   "branch": "dev",
-  "workflow_run": "20",
+  "workflow_run": "22",
   "actor": "aymardkouakou",
   "repository": "finasys/finapay_mobile",
   "build_date": "2025-08-18",
-  "build_time": "17:50:07",
+  "build_time": "18:06:48",
   "timezone": "UTC",
   "flutter_version": "3.29.0",
   "release_notes": "🚀 Build automatique depuis la branche dev"
-  }
-  EOF
-
-# Valider le JSON généré
-if command -v jq >/dev/null 2>&1; then
-  echo "🔍 Validation du JSON..."
-  jq empty release-files/release-info.json && echo "✅ JSON valide" || echo "❌ JSON invalide"
-fi
-
-echo "✅ Fichiers copiés :"
-ls -la release-files/
-
-echo "📄 Contenu du release-info.json :"
-cat release-files/release-info.json
+}
