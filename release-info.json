@@ -1,1 +1,20 @@
-{"version": "v0.0.6", "date": "2025-08-18T16:29:34+00:00", "commit": "7c7c22167036480e33b641a534dc92ea834500e6"}
+  {
+  "version": "v0.0.10",
+  "date": "2025-08-18T17:24:11+00:00",
+  "timestamp": 1755537851,
+  "commit": "54589d544966d91aedf9f7442ff6fd9ec09dede7",
+  "short_commit": "54589d5",
+  "branch": "dev",
+  "workflow_run": "19",
+  "actor": "aymardkouakou",
+  "repository": "finasys/finapay_mobile",
+  "build_date": "2025-08-18",
+  "build_time": "17:24:11",
+  "timezone": "UTC",
+  "flutter_version": "3.29.0",
+  "release_notes": "🚀 Build automatique depuis la branche dev"
+  }
+  EOF
+
+echo "✅ Fichiers copiés :"
+ls -la release-files/

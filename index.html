@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- iOS meta tags & icons -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="finapay_app">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+    <title>FinaPay Mobile - Téléchargements</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💳</text></svg>">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png"/>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .download-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .version-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+        }
+
+        .version-badge {
+            background: #667eea;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .last-updated {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Nouvelle section pour les détails de release */
+        .release-details {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e9ecef;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .detail-item {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            font-weight: bold;
+            color: #333;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .commit-link {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .commit-link:hover {
+            text-decoration: underline;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .download-card {
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .download-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .file-size {
+            display: block;
+            font-size: 0.8rem;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* Styles pour le QR Code */
+        .qr-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .qr-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qr-code {
+            width: 120px;
+            height: 120px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 5px;
+            background: white;
+        }
+
+        .qr-label {
+            font-size: 0.8rem;
+            color: #666;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .qr-generate-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .qr-generate-btn:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        .instructions {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .instructions ul {
+            color: #856404;
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .download-section {
+                padding: 20px;
+            }
+            
+            .version-info {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💳 FinaPay Mobile</h1>
+            <p>Application mobile de gestion financière</p>
+        </div>
+
+        <div class="download-section">
+            <div class="version-info">
+                <div>
+                    <span class="version-badge" id="version-badge">Chargement...</span>
+                </div>
+                <div class="last-updated" id="last-updated">Chargement des informations...</div>
+            </div>
+
+            <!-- Section des détails de release -->
+            <div id="release-details" class="release-details hidden">
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="detail-label">📅 Date de build</div>
+                        <div class="detail-value" id="build-date">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">⏰ Heure de build</div>
+                        <div class="detail-value" id="build-time">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">🔧 Commit</div>
+                        <div class="detail-value" id="commit-info">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">🌿 Branche</div>
+                        <div class="detail-value" id="branch-info">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">🏗️ Build #</div>
+                        <div class="detail-value" id="workflow-run">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-label">🦋 Flutter</div>
+                        <div class="detail-value" id="flutter-version">-</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="loading" class="loading">
+                <p>⏳ Chargement des téléchargements disponibles...</p>
+            </div>
+
+            <div id="error" class="error" style="display: none;">
+                <p>❌ Erreur lors du chargement des fichiers. Veuillez réessayer plus tard.</p>
+            </div>
+
+            <div id="download-content" style="display: none;">
+                <div class="download-grid">
+                    <div class="download-card">
+                        <div class="card-icon">📱</div>
+                        <div class="card-title">APK Android</div>
+                        <div class="card-description">
+                            Installation directe sur Android.<br>
+                            Compatible avec tous les appareils Android 5.0+
+                        </div>
+                        <a href="finapay-latest.apk" class="download-btn" id="apk-download">
+                            📥 Télécharger APK
+                        </a>
+                        <span class="file-size" id="apk-size">Taille: Calcul en cours...</span>
+                        
+                        <!-- Section QR Code pour l'APK -->
+                        <div class="qr-section">
+                            <div class="qr-container">
+                                <canvas id="qr-canvas" class="qr-code hidden"></canvas>
+                                <div class="qr-label" id="qr-label">📲 Scanner pour télécharger</div>
+                                <button class="qr-generate-btn" id="generate-qr" onclick="generateQRCode()">
+                                    Générer QR Code
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="download-card">
+                        <div class="card-icon">🏪</div>
+                        <div class="card-title">App Bundle (AAB)</div>
+                        <div class="card-description">
+                            Format optimisé pour Google Play Store.<br>
+                            Réservé aux développeurs et testeurs
+                        </div>
+                        <a href="finapay-latest.aab" class="download-btn" id="aab-download">
+                            📥 Télécharger AAB
+                        </a>
+                        <span class="file-size" id="aab-size">Taille: Calcul en cours...</span>
+                    </div>
+                </div>
+
+                <div class="instructions">
+                    <h3>⚠️ Instructions d'installation</h3>
+                    <ul>
+                        <li><strong>APK :</strong> Activez "Sources inconnues" dans les paramètres Android</li>
+                        <li><strong>QR Code :</strong> Scannez avec votre appareil Android pour télécharger directement</li>
+                        <li><strong>Sécurité :</strong> Téléchargez uniquement depuis cette page officielle</li>
+                        <li><strong>Problème :</strong> Redémarrez votre appareil après installation</li>
+                        <li><strong>Support :</strong> Contactez l'équipe technique en cas de problème</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 FinaPay - Développé avec ❤️ par l'équipe Finasys</p>
+        </div>
+    </div>
+
+    <script>
+        // QR Code generation using a simple library-free approach
+        function generateQRCode() {
+            const canvas = document.getElementById('qr-canvas');
+            const button = document.getElementById('generate-qr');
+            const currentUrl = window.location.origin + window.location.pathname;
+            const apkUrl = currentUrl.endsWith('/') ? currentUrl + 'finapay-latest.apk' : currentUrl.replace(/\/[^\/]*$/, '/finapay-latest.apk');
+            
+            // Use a QR code service API
+            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(apkUrl)}`;
+            
+            // Create an image instead of canvas for simplicity
+            const img = document.createElement('img');
+            img.src = qrApiUrl;
+            img.className = 'qr-code';
+            img.style.display = 'block';
+            img.alt = 'QR Code pour télécharger APK';
+            
+            // Replace canvas with image
+            canvas.style.display = 'none';
+            canvas.parentNode.insertBefore(img, canvas);
+            
+            button.textContent = '✅ QR Code généré';
+            button.disabled = true;
+            button.style.background = '#6c757d';
+        }
+
+        // Fonction pour formater la taille des fichiers
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Fonction pour charger les informations de release (améliorée)
+        async function loadReleaseInfo() {
+            try {
+                const response = await fetch('release-info.json');
+                if (!response.ok) throw new Error('Fichier non trouvé');
+                
+                const data = await response.json();
+                
+                // Mettre à jour les informations de version
+                document.getElementById('version-badge').textContent = data.version || 'Version inconnue';
+                
+                const date = new Date(data.date);
+                document.getElementById('last-updated').textContent = 
+                    `Dernière mise à jour: ${date.toLocaleDateString('fr-FR')} à ${date.toLocaleTimeString('fr-FR')}`;
+                
+                // Afficher les détails enrichis
+                if (data.build_date) {
+                    document.getElementById('build-date').textContent = data.build_date;
+                }
+                if (data.build_time) {
+                    document.getElementById('build-time').textContent = `${data.build_time} ${data.timezone || ''}`;
+                }
+                if (data.short_commit) {
+                    const commitEl = document.getElementById('commit-info');
+                    if (data.repository) {
+                        commitEl.innerHTML = `<a href="https://github.com/${data.repository}/commit/${data.commit}" class="commit-link" target="_blank">${data.short_commit}</a>`;
+                    } else {
+                        commitEl.textContent = data.short_commit;
+                    }
+                }
+                if (data.branch) {
+                    document.getElementById('branch-info').textContent = data.branch;
+                }
+                if (data.workflow_run) {
+                    document.getElementById('workflow-run').textContent = `#${data.workflow_run}`;
+                }
+                if (data.flutter_version) {
+                    document.getElementById('flutter-version').textContent = data.flutter_version;
+                }
+                
+                // Afficher la section des détails
+                document.getElementById('release-details').classList.remove('hidden');
+                
+            } catch (error) {
+                console.warn('Impossible de charger release-info.json:', error);
+                document.getElementById('version-badge').textContent = 'Dernière version';
+                document.getElementById('last-updated').textContent = 'Informations de version non disponibles';
+            }
+        }
+
+        // Fonction pour obtenir la taille des fichiers
+        async function getFileSize(url, elementId) {
+            try {
+                const response = await fetch(url, { method: 'HEAD' });
+                if (response.ok) {
+                    const size = response.headers.get('content-length');
+                    if (size) {
+                        document.getElementById(elementId).textContent = `Taille: ${formatFileSize(parseInt(size))}`;
+                        return;
+                    }
+                }
+            } catch (error) {
+                console.warn(`Impossible d'obtenir la taille de ${url}:`, error);
+            }
+            document.getElementById(elementId).textContent = 'Taille: Non disponible';
+        }
+
+        // Fonction pour vérifier si les fichiers existent
+        async function checkFiles() {
+            const files = [
+                { url: 'finapay-latest.apk', name: 'APK' },
+                { url: 'finapay-latest.aab', name: 'AAB' }
+            ];
+
+            let filesExist = 0;
+            
+            for (const file of files) {
+                try {
+                    const response = await fetch(file.url, { method: 'HEAD' });
+                    if (response.ok) {
+                        filesExist++;
+                    }
+                } catch (error) {
+                    console.warn(`Fichier ${file.name} non trouvé:`, error);
+                }
+            }
+
+            return filesExist > 0;
+        }
+
+        // Initialisation de la page
+        async function init() {
+            const loadingEl = document.getElementById('loading');
+            const errorEl = document.getElementById('error');
+            const contentEl = document.getElementById('download-content');
+
+            try {
+                // Vérifier si les fichiers existent
+                const filesAvailable = await checkFiles();
+                
+                if (!filesAvailable) {
+                    throw new Error('Aucun fichier de téléchargement disponible');
+                }
+
+                // Charger les informations de release
+                await loadReleaseInfo();
+
+                // Obtenir les tailles des fichiers
+                getFileSize('finapay-latest.apk', 'apk-size');
+                getFileSize('finapay-latest.aab', 'aab-size');
+
+                // Afficher le contenu
+                loadingEl.style.display = 'none';
+                contentEl.style.display = 'block';
+
+            } catch (error) {
+                console.error('Erreur lors de l\'initialisation:', error);
+                loadingEl.style.display = 'none';
+                errorEl.style.display = 'block';
+            }
+        }
+
+        // Lancer l'initialisation quand la page est chargée
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Ajouter des analytics de téléchargement (optionnel)
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('download-btn')) {
+                const fileName = e.target.getAttribute('href');
+                console.log(`Téléchargement initié: ${fileName}`);
+                
+                // Ici vous pourriez ajouter Google Analytics ou autre tracking
+                // gtag('event', 'download', { file_name: fileName });
+            }
+        });
+    </script>
+</body>
+</html>
