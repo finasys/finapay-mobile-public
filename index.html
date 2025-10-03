@@ -59,9 +59,22 @@
             font-weight: bold;
             transition: transform 0.3s;
             margin: 10px;
+            position: relative;
         }
         .play-button:hover {
             transform: translateY(-2px);
+        }
+        .play-button .size-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #fff;
+            color: #333;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .redirect-info {
             margin-top: 30px;
@@ -91,15 +104,17 @@
             📱 Télécharger sur Google Play
         </a>
         
-        <a href="https://github.com/finasys/finapay_mobile/releases/latest/download/app-release.apk" class="play-button" style="background: #34A853;">
+        <a href="./app-release.apk" class="play-button" style="background: #34A853;" download>
             📦 Télécharger l'APK (Direct)
+            <span class="size-badge" id="apk-size">...</span>
         </a>
         
         <div class="redirect-info">
             <p>🚀 Redirection automatique vers Play Store dans <span class="countdown" id="countdown">10</span> secondes...</p>
             <p style="margin-top: 10px; font-size: 12px;">
                 💡 <strong>Play Store :</strong> Mises à jour automatiques recommandées<br>
-                📦 <strong>APK Direct :</strong> Installation manuelle sans Play Store
+                📦 <strong>APK Direct :</strong> Installation manuelle sans Play Store<br>
+                <small style="color: #999;">⚠️ Activez "Sources inconnues" dans les paramètres Android pour l'APK</small>
             </p>
         </div>
         
@@ -133,6 +148,11 @@
                     📅 Build: ${data.build_date} ${data.build_time}<br>
                     🔧 Flutter: ${data.flutter_version}
                 `;
+                
+                // Afficher la taille de l'APK si disponible
+                if (data.apk_size_mb) {
+                    document.getElementById('apk-size').textContent = data.apk_size_mb;
+                }
             })
             .catch(() => {
                 document.getElementById('version-info').innerHTML = '📦 Informations de version non disponibles';
