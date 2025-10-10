@@ -26,7 +26,7 @@ https://finasys.github.io/finapay-mobile-public
 
 - **Version :** 1.0.0
 - **Build :** 2
-- **Date :** 2025-10-10 16:24:17
+- **Date :** 2025-10-10 17:36:18
 - **Taille APK :** 49M
 
 > ⚠️ **Note importante :** L'APK est hébergé publiquement sur GitHub Pages et accessible à tous sans authentification.
